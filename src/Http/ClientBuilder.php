@@ -16,8 +16,8 @@ namespace GrahamCampbell\GitLab\Http;
 use Gitlab\HttpClient\Builder;
 use GrahamCampbell\CachePlugin\CachePlugin;
 use Http\Client\Common\HttpMethodsClient;
-use Http\Client\Common\PluginClient;
 use Http\Client\Common\Plugin\Cache\Generator\CacheKeyGenerator;
+use Http\Client\Common\PluginClient;
 use Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 
