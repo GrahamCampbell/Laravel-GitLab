@@ -50,7 +50,7 @@ class ClientBuilder extends Builder
             ));
         }
 
-        return $this->getPropertyValue('pluginClient')
+        return $this->getPropertyValue('pluginClient');
     }
 
     /**
