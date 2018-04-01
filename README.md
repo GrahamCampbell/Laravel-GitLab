@@ -90,7 +90,7 @@ use GrahamCampbell\GitLab\Facades\GitLab;
 GitLab::connection('main')->groups()->all();
 
 // is identical to writing this:
-GitLab::issues()->groups()->all();
+GitLab::groups()->all();
 
 // and is also identical to writing this:
 GitLab::connection()->groups()->all();
