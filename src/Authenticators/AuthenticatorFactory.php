@@ -28,6 +28,8 @@ class AuthenticatorFactory
      *
      * @param string $method
      *
+     * @throws \InvalidArgumentException
+     *
      * @return \GrahamCampbell\GitLab\Authenticators\AuthenticatorInterface
      */
     public function make(string $method)
