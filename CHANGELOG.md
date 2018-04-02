@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V1.3 (Upcoming)
+
+* Support no authentication
+
+
 ## V1.2 (25/03/2018)
 
 * Support only m4tthumphrey/php-gitlab-api 9.8
