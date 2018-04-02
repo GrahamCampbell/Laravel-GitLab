@@ -73,7 +73,11 @@ class GitLabFactory
             throw new InvalidArgumentException('The gitlab factory requires an auth method.');
         }
 
-        return $this->auth->make(array_get($config, 'method'))->with($client)->authenticate($config);
+        if ($config['method'] === 'none') {
+            return $client;
+        }
+
+        return $this->auth->make($config['method'])->with($client)->authenticate($config);
     }
 
     /**

@@ -77,6 +77,15 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
+    public function testMakeNoneMethod()
+    {
+        $factory = $this->getFactory();
+
+        $client = $factory[0]->make(['method' => 'none']);
+
+        $this->assertInstanceOf(Client::class, $client);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Unsupported authentication method [bar].
