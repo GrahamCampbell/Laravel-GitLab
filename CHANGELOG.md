@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V1.3 (Upcoming)
+## V1.3 (02/04/2018)
 
 * Support no authentication
 
