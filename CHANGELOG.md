@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V1.4 (Upcoming)
+
+* Support customizing the base URL
+
+
 ## V1.3 (02/04/2018)
 
 * Support no authentication
