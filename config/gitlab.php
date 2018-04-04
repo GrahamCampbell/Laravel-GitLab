@@ -46,6 +46,7 @@ return [
             // 'backoff' => false,
             // 'cache'   => false,
             // 'sudo'    => null,
+            // 'url'     => null,
         ],
 
         'alternative' => [
@@ -54,6 +55,7 @@ return [
             // 'backoff' => false,
             // 'cache'   => false,
             // 'sudo'    => null,
+            // 'url'     => null,
         ],
 
     ],

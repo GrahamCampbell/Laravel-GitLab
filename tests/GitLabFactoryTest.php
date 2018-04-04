@@ -77,6 +77,15 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
+    public function testMakeStandardExplicitUrl()
+    {
+        $factory = $this->getFactory();
+
+        $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'url' => 'https://api.example.com']);
+
+        $this->assertInstanceOf(Client::class, $client);
+    }
+
     public function testMakeNoneMethod()
     {
         $factory = $this->getFactory();
