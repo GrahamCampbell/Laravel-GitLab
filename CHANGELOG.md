@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V1.4 (Upcoming)
+## V1.4 (05/04/2018)
 
 * Support customizing the base URL
 
