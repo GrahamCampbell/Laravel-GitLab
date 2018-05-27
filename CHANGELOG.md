@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V1.5 (27/05/2018)
+
+* Support m4tthumphrey/php-gitlab-api 9.9 too
+
+
 ## V1.4 (05/04/2018)
 
 * Support customizing the base URL
