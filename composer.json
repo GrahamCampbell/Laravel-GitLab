@@ -15,7 +15,7 @@
         "illuminate/support": "5.5.*|5.6.*",
         "graham-campbell/cache-plugin": "^1.0",
         "graham-campbell/manager": "^4.0",
-        "m4tthumphrey/php-gitlab-api": "9.8.*|9.9.*"
+        "m4tthumphrey/php-gitlab-api": "9.8.*|9.9.*|9.10.*"
     },
     "require-dev": {
         "graham-campbell/analyzer": "^2.0",
