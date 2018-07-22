@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V1.6 (22/07/2018)
+
+* Support m4tthumphrey/php-gitlab-api 9.10 too
+
+
 ## V1.5 (27/05/2018)
 
 * Support m4tthumphrey/php-gitlab-api 9.9 too
