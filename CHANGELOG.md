@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V1.7 (23/08/2018)
+
+* Added Laravel 5.7 support
+
+
 ## V1.6 (22/07/2018)
 
 * Support m4tthumphrey/php-gitlab-api 9.10 too
