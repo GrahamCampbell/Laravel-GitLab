@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V1.8 (xx/01/2019)
+## V1.8 (28/01/2019)
 
 * Require m4tthumphrey/php-gitlab-api 9.11
 
