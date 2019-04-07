@@ -84,7 +84,6 @@ class OauthAuthenticatorTest extends AbstractTestCase
         $this->expectExceptionMessage('The gitlab authenticator requires a token.');
 
         $authenticator->with($client)->authenticate([]);
-
     }
 
     public function testMakeWithoutSettingClient()
