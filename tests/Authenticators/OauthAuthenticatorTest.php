@@ -16,6 +16,7 @@ namespace GrahamCampbell\Tests\GitLab\Authenticators;
 use Gitlab\Client;
 use GrahamCampbell\GitLab\Authenticators\GitLabAuthenticator;
 use GrahamCampbell\Tests\GitLab\AbstractTestCase;
+use InvalidArgumentException;
 use Mockery;
 
 /**
@@ -73,30 +74,27 @@ class OauthAuthenticatorTest extends AbstractTestCase
         $this->assertInstanceOf(Client::class, $return);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The gitlab authenticator requires a token.
-     */
     public function testMakeWithoutToken()
     {
         $authenticator = $this->getAuthenticator();
 
         $client = Mockery::mock(Client::class);
 
-        $return = $authenticator->with($client)->authenticate([]);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The gitlab authenticator requires a token.');
 
-        $this->assertInstanceOf(Client::class, $return);
+        $authenticator->with($client)->authenticate([]);
+
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The client instance was not given to the authenticator.
-     */
     public function testMakeWithoutSettingClient()
     {
         $authenticator = $this->getAuthenticator();
 
-        $return = $authenticator->authenticate([
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The client instance was not given to the authenticator.');
+
+        $authenticator->authenticate([
             'token'  => 'your-token',
             'method' => 'token',
         ]);

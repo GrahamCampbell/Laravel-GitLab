@@ -19,6 +19,7 @@ use GrahamCampbell\GitLab\GitLabFactory;
 use GrahamCampbell\TestBench\AbstractTestCase as AbstractTestBenchTestCase;
 use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Contracts\Cache\Repository;
+use InvalidArgumentException;
 use Mockery;
 
 /**
@@ -95,24 +96,22 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unsupported authentication method [bar].
-     */
     public function testMakeInvalidMethod()
     {
         $factory = $this->getFactory();
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported authentication method [bar].');
+
         $factory[0]->make(['method' => 'bar']);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The gitlab factory requires an auth method.
-     */
     public function testMakeEmpty()
     {
         $factory = $this->getFactory();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The gitlab factory requires an auth method.');
 
         $factory[0]->make([]);
     }

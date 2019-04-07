@@ -16,6 +16,8 @@ namespace GrahamCampbell\Tests\GitLab\Authenticators;
 use GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Authenticators\GitLabAuthenticator;
 use GrahamCampbell\Tests\GitLab\AbstractTestCase;
+use InvalidArgumentException;
+use TypeError;
 
 /**
  * This is the authenticator factory test class.
@@ -38,20 +40,18 @@ class AuthenticatorFactoryTest extends AbstractTestCase
         $this->assertInstanceOf(GitLabAuthenticator::class, $return);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Unsupported authentication method [foo].
-     */
     public function testMakeInvalidAuthenticator()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported authentication method [foo].');
+
         $this->getFactory()->make('foo');
     }
 
-    /**
-     * @expectedException TypeError
-     */
     public function testMakeNoAuthenticator()
     {
+        $this->expectException(TypeError::class);
+
         $this->getFactory()->make(null);
     }
 
