@@ -1,7 +1,7 @@
 Laravel GitLab
 ==============
 
-Laravel GitLab was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a [PHP GitLab API](https://github.com/m4tthumphrey/php-gitlab-api) bridge for [Laravel 5](http://laravel.com). It utilises my [Laravel Manager](https://github.com/GrahamCampbell/Laravel-Manager) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-GitLab/releases), [license](LICENSE), and [contribution guidelines](CONTRIBUTING.md).
+Laravel GitLab was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a [PHP GitLab API](https://github.com/m4tthumphrey/php-gitlab-api) bridge for [Laravel 5](http://laravel.com). It utilises my [Laravel Manager](https://github.com/GrahamCampbell/Laravel-Manager) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-GitLab/releases), [security policy](https://github.com/GrahamCampbell/Laravel-GitLab/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
 
 <p align="center">
 <a href="https://styleci.io/repos/123726374"><img src="https://styleci.io/repos/123726374/shield" alt="StyleCI Status"></img></a>
@@ -135,7 +135,7 @@ There are other classes in this package that are not documented here. This is be
 
 ## Security
 
-If you discover a security vulnerability within this package, please send an e-mail to Graham Campbell at graham@alt-three.com. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within this package, please send an email to Graham Campbell at graham@alt-three.com. All security vulnerabilities will be promptly addressed. You may view our full security policy [here](https://github.com/GrahamCampbell/Laravel-GitLab/security/policy).
 
 
 ## License
