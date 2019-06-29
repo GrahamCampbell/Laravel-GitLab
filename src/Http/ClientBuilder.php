@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab\Http;
 
 use Gitlab\HttpClient\Builder;
-use GrahamCampbell\CachePlugin\CachePlugin;
+use Http\Client\Common\Plugin\CachePlugin;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin\Cache\Generator\CacheKeyGenerator;
+use Http\Client\Common\Plugin\Cache\Generator\HeaderCacheKeyGenerator;
 use Http\Client\Common\PluginClientFactory;
 use Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
@@ -29,11 +30,20 @@ use ReflectionClass;
 class ClientBuilder extends Builder
 {
     /**
+     * The default cache lifetime of 48 hours.
+     *
+     * @var int
+     */
+    const DEFAULT_CACHE_LIFETIME = 172800;
+
+    /**
      * The cache plugin to use.
      *
-     * @var \GrahamCampbell\CachePlugin\CachePlugin|null
+     * This plugin is specially treated because it has to be the very last plugin.
+     *
+     * @var \Http\Client\Common\Plugin\CachePlugin|null
      */
-    protected $cachePlugin;
+    private $cachePlugin;
 
     /**
      * Get the gitlab http client.
@@ -58,7 +68,7 @@ class ClientBuilder extends Builder
      *
      * @return \Http\Client\Common\Plugin[]
      */
-    protected function getPlugins()
+    private function getPlugins()
     {
         $plugins = $this->getPropertyValue('plugins');
 
@@ -79,7 +89,11 @@ class ClientBuilder extends Builder
      */
     public function addCache(CacheItemPoolInterface $cachePool, array $config = [])
     {
-        $this->setCachePlugin($cachePool, $config['generator'] ?? null, $config['lifetime'] ?? null);
+        $this->setCachePlugin(
+            $cachePool,
+            $config['generator'] ?? new HeaderCacheKeyGenerator(['Authorization', 'Cookie', 'Accept', 'Content-type']),
+            $config['lifetime'] ?? self::DEFAULT_CACHE_LIFETIME
+        );
 
         $this->setPropertyValue('httpClientModified', true);
     }
@@ -87,17 +101,19 @@ class ClientBuilder extends Builder
     /**
      * Add a cache plugin to cache responses locally.
      *
-     * @param \Psr\Cache\CacheItemPoolInterface                                 $cachePool
-     * @param \Http\Client\Common\Plugin\Cache\Generator\CacheKeyGenerator|null $generator
-     * @param int|null                                                          $lifetime
+     * @param \Psr\Cache\CacheItemPoolInterface                            $cachePool
+     * @param \Http\Client\Common\Plugin\Cache\Generator\CacheKeyGenerator $generator
+     * @param int                                                          $lifetime
      *
      * @return void
      */
-    protected function setCachePlugin(CacheItemPoolInterface $cachePool, CacheKeyGenerator $generator = null, int $lifetime = null)
+    private function setCachePlugin(CacheItemPoolInterface $cachePool, CacheKeyGenerator $generator, int $lifetime)
     {
         $stream = $this->getPropertyValue('streamFactory');
 
-        $this->cachePlugin = new CachePlugin($cachePool, $stream, $generator, $lifetime);
+        $options = ['cache_lifetime' => $lifetime, 'cache_key_generator' => $generator];
+
+        $this->cachePlugin = CachePlugin::clientCache($cachePool, $stream, $options);
     }
 
     /**
@@ -107,9 +123,9 @@ class ClientBuilder extends Builder
      *
      * @return mixed
      */
-    protected function getPropertyValue(string $name)
+    private function getPropertyValue(string $name)
     {
-        return static::getProperty($name)->getValue($this);
+        return self::getProperty($name)->getValue($this);
     }
 
     /**
@@ -120,9 +136,9 @@ class ClientBuilder extends Builder
      *
      * @return void
      */
-    protected function setPropertyValue(string $name, $value)
+    private function setPropertyValue(string $name, $value)
     {
-        static::getProperty($name)->setValue($this, $value);
+        self::getProperty($name)->setValue($this, $value);
     }
 
     /**
@@ -132,7 +148,7 @@ class ClientBuilder extends Builder
      *
      * @return \ReflectionProperty
      */
-    protected static function getProperty(string $name)
+    private static function getProperty(string $name)
     {
         $prop = (new ReflectionClass(Builder::class))->getProperty($name);
 

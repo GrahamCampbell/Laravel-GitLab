@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V2.0 (Upcoming)
+
+* Reworked caching
+
+
 ## V1.10 (16/05/2019)
 
 * Require m4tthumphrey/php-gitlab-api 9.13

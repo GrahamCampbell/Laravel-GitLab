@@ -19,7 +19,7 @@ use GrahamCampbell\GitLab\Http\ClientBuilder;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Illuminate\Contracts\Cache\Factory;
 use InvalidArgumentException;
-use Madewithlove\IlluminatePsrCacheBridge\Laravel\CacheItemPool;
+use Symfony\Component\Cache\Adapter\SimpleCacheAdapter;
 
 /**
  * This is the gitlab factory class.
@@ -36,9 +36,9 @@ class GitLabFactory
     protected $auth;
 
     /**
-     * The illuminate cache instance.
+     * The illuminate cache factory instance.
      *
-     * @var \Illuminate\Contracts\Cache\Factory|null
+     * @var \Illuminate\Contracts\Cache\Factory
      */
     protected $cache;
 
@@ -46,11 +46,11 @@ class GitLabFactory
      * Create a new gitlab factory instance.
      *
      * @param \GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory $auth
-     * @param \Illuminate\Contracts\Cache\Factory|null                   $cache
+     * @param \Illuminate\Contracts\Cache\Factory                        $cache
      *
      * @return void
      */
-    public function __construct(AuthenticatorFactory $auth, Factory $cache = null)
+    public function __construct(AuthenticatorFactory $auth, Factory $cache)
     {
         $this->auth = $auth;
         $this->cache = $cache;
@@ -99,8 +99,8 @@ class GitLabFactory
             $builder->addPlugin(new RetryPlugin(['retries' => $backoff === true ? 2 : $backoff]));
         }
 
-        if ($this->cache && class_exists(CacheItemPool::class) && $cache = array_get($config, 'cache')) {
-            $builder->addCache(new CacheItemPool($this->cache->store($cache === true ? null : $cache)));
+        if ($cache = array_get($config, 'cache')) {
+            $builder->addCache(new SimpleCacheAdapter($this->cache->store($cache === true ? null : $cache)));
         }
 
         return $builder;
