@@ -20,7 +20,7 @@ use InvalidArgumentException;
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-class GitLabAuthenticator extends AbstractAuthenticator implements AuthenticatorInterface
+class GitLabAuthenticator extends AbstractAuthenticator
 {
     /**
      * The auth method to use.
