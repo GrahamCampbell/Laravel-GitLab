@@ -16,6 +16,7 @@ namespace GrahamCampbell\GitLab;
 use Gitlab\Client;
 use GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Http\ClientBuilder;
+use GrahamCampbell\GitLab\Http\Psr16Cache;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Support\Arr;
@@ -30,6 +31,20 @@ use Symfony\Component\Cache\Adapter\SimpleCacheAdapter;
  */
 class GitLabFactory
 {
+    /**
+     * The minimum cache lifetime of 12 hours.
+     *
+     * @var int
+     */
+    const MIN_CACHE_LIFETIME = 43200;
+
+    /**
+     * The maximum cache lifetime of 48 hours.
+     *
+     * @var int
+     */
+    const MAX_CACHE_LIFETIME = 172800;
+
     /**
      * The authenticator factory instance.
      *
@@ -119,6 +134,8 @@ class GitLabFactory
     {
         $store = $this->cache->store($name === true ? null : $name);
 
-        return class_exists(Psr16Adapter::class) ? new Psr16Adapter($store) : new SimpleCacheAdapter($store);
+        $repo = new Psr16Cache($store, self::MIN_CACHE_LIFETIME, self::MAX_CACHE_LIFETIME);
+
+        return class_exists(Psr16Adapter::class) ? new Psr16Adapter($repo) : new SimpleCacheAdapter($repo);
     }
 }
