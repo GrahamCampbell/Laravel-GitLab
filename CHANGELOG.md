@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## V2.3 (14/11/2019)
+
+* Require m4tthumphrey/php-gitlab-api 9.14
+* Support both HTTPlug v1 and v2
+
+
 ## V2.2 (26/08/2019)
 
 * Added Laravel 6 support
