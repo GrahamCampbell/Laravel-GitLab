@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V2.3.1 (08/12/2019)
+
+* Added missing properties
+
+
 ## V2.3 (14/11/2019)
 
 * Require m4tthumphrey/php-gitlab-api 9.14
