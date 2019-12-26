@@ -3,6 +3,8 @@ Laravel GitLab
 
 Laravel GitLab was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a [PHP GitLab API](https://github.com/m4tthumphrey/php-gitlab-api) bridge for [Laravel 5](http://laravel.com). It utilises my [Laravel Manager](https://github.com/GrahamCampbell/Laravel-Manager) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-GitLab/releases), [security policy](https://github.com/GrahamCampbell/Laravel-GitLab/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
 
+![Banner](https://user-images.githubusercontent.com/2829600/71477349-6131cd00-27e1-11ea-84b0-8b4e539c7ad7.png)
+
 <p align="center">
 <a href="https://styleci.io/repos/123726374"><img src="https://styleci.io/repos/123726374/shield" alt="StyleCI Status"></img></a>
 <a href="https://travis-ci.org/GrahamCampbell/Laravel-GitLab"><img src="https://img.shields.io/travis/GrahamCampbell/Laravel-GitLab/master.svg?style=flat-square" alt="Build Status"></img></a>
