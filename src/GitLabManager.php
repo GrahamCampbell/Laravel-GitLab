@@ -19,6 +19,9 @@ use Illuminate\Contracts\Config\Repository;
 /**
  * This is the gitlab manager class.
  *
+ * @method \Gitlab\Client connection(string|null $name)
+ * @method \Gitlab\Client reconnect(string|null $name)
+ * @method array<string,\Gitlab\Client> getConnections(string $name)
  * @method \Gitlab\Api\DeployKeys deployKeys()
  * @method \Gitlab\Api\Groups groups()
  * @method \Gitlab\Api\Issues issues()
