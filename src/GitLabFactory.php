@@ -55,7 +55,7 @@ class GitLabFactory
     /**
      * The illuminate cache factory instance.
      *
-     * @var \Illuminate\Contracts\Cache\Factory
+     * @var \Illuminate\Contracts\Cache\Factory|null
      */
     protected $cache;
 
@@ -63,11 +63,11 @@ class GitLabFactory
      * Create a new gitlab factory instance.
      *
      * @param \GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory $auth
-     * @param \Illuminate\Contracts\Cache\Factory                        $cache
+     * @param \Illuminate\Contracts\Cache\Factory|null                   $cache
      *
      * @return void
      */
-    public function __construct(AuthenticatorFactory $auth, Factory $cache)
+    public function __construct(AuthenticatorFactory $auth, Factory $cache = null)
     {
         $this->auth = $auth;
         $this->cache = $cache;
@@ -132,6 +132,10 @@ class GitLabFactory
      */
     protected function getCacheAdapter($name)
     {
+        if (!$this->cache) {
+            throw new InvalidArgumentException('Caching support not available.');
+        }
+
         $store = $this->cache->store($name === true ? null : $name);
 
         $repo = new Psr16Cache($store, self::MIN_CACHE_LIFETIME, self::MAX_CACHE_LIFETIME);

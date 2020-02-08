@@ -91,7 +91,7 @@ class GitLabServiceProvider extends ServiceProvider
     {
         $this->app->singleton('gitlab.factory', function (Container $app) {
             $auth = $app['gitlab.authfactory'];
-            $cache = $app['cache'];
+            $cache = $app->bound('cache') ? $app->make('cache') : null;
 
             return new GitLabFactory($auth, $cache);
         });
