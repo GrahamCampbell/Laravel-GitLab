@@ -66,12 +66,10 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
     {
         $factory = $this->getFactory(false);
 
-        $factory[1]->shouldReceive('store')->once()->with(null)->andReturn(Mockery::mock(Repository::class));
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Caching support not available.');
 
-        $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => true]);
-
-        $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => true]);
     }
 
     public function testMakeStandardNamedCache()
@@ -110,10 +108,11 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
     {
         $factory = $this->getFactory(false);
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Caching support not available.');
+        $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => false, 'backoff' => false]);
 
-        $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => false, 'backoff' => false]);
+        $this->assertInstanceOf(Client::class, $client);
+        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+    }
     }
 
     public function testMakeStandardExplicitBackoff()
