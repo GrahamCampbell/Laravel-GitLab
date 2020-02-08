@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V2.5 (08/02/2020)
+
+* Made caching truly optional
+
+
 ## V2.4 (25/01/2020)
 
 * Added Laravel 7 support
