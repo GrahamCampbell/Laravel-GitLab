@@ -113,7 +113,6 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $this->assertInstanceOf(Client::class, $client);
         $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
     }
-    }
 
     public function testMakeStandardExplicitBackoff()
     {
