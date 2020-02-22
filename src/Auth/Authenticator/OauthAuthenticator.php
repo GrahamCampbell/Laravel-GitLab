@@ -11,36 +11,18 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace GrahamCampbell\GitLab\Authenticators;
+namespace GrahamCampbell\GitLab\Auth\Authenticator;
 
+use Gitlab\Client;
 use InvalidArgumentException;
 
 /**
- * This is the gitlab authenticator class.
+ * This is the oauth authenticator class.
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-class GitLabAuthenticator extends AbstractAuthenticator
+class OauthAuthenticator extends AbstractAuthenticator
 {
-    /**
-     * The auth method to use.
-     *
-     * @var string
-     */
-    protected $method;
-
-    /**
-     * Create a new gitlab authenticator instance.
-     *
-     * @param string $method
-     *
-     * @return void
-     */
-    public function __construct(string $method)
-    {
-        $this->method = $method;
-    }
-
     /**
      * Authenticate the client, and return it.
      *
@@ -57,10 +39,10 @@ class GitLabAuthenticator extends AbstractAuthenticator
         }
 
         if (!array_key_exists('token', $config)) {
-            throw new InvalidArgumentException('The gitlab authenticator requires a token.');
+            throw new InvalidArgumentException('The oauth authenticator requires a token.');
         }
 
-        $this->client->authenticate($config['token'], $this->method, $config['sudo'] ?? null);
+        $this->client->authenticate($config['token'], Client::AUTH_OAUTH_TOKEN, $config['sudo'] ?? null);
 
         return $this->client;
     }

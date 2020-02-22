@@ -14,15 +14,12 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab;
 
 use Gitlab\Client;
-use GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory;
+use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
+use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use GrahamCampbell\GitLab\Http\ClientBuilder;
-use GrahamCampbell\GitLab\Http\Psr16Cache;
 use Http\Client\Common\Plugin\RetryPlugin;
-use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
-use Symfony\Component\Cache\Adapter\Psr16Adapter;
-use Symfony\Component\Cache\Adapter\SimpleCacheAdapter;
 
 /**
  * This is the gitlab factory class.
@@ -32,42 +29,28 @@ use Symfony\Component\Cache\Adapter\SimpleCacheAdapter;
 class GitLabFactory
 {
     /**
-     * The minimum cache lifetime of 12 hours.
-     *
-     * @var int
-     */
-    const MIN_CACHE_LIFETIME = 43200;
-
-    /**
-     * The maximum cache lifetime of 48 hours.
-     *
-     * @var int
-     */
-    const MAX_CACHE_LIFETIME = 172800;
-
-    /**
      * The authenticator factory instance.
      *
-     * @var \GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory
+     * @var \GrahamCampbell\GitLab\Auth\AuthenticatorFactory
      */
     protected $auth;
 
     /**
-     * The illuminate cache factory instance.
+     * The cache factory instance.
      *
-     * @var \Illuminate\Contracts\Cache\Factory|null
+     * @var \GrahamCampbell\GitLab\Cache\ConnectionFactory
      */
     protected $cache;
 
     /**
      * Create a new gitlab factory instance.
      *
-     * @param \GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory $auth
-     * @param \Illuminate\Contracts\Cache\Factory|null                   $cache
+     * @param \GrahamCampbell\GitLab\Auth\AuthenticatorFactory $auth
+     * @param \GrahamCampbell\GitLab\Cache\ConnectionFactory   $cache
      *
      * @return void
      */
-    public function __construct(AuthenticatorFactory $auth, Factory $cache = null)
+    public function __construct(AuthenticatorFactory $auth, ConnectionFactory $cache)
     {
         $this->auth = $auth;
         $this->cache = $cache;
@@ -116,30 +99,10 @@ class GitLabFactory
             $builder->addPlugin(new RetryPlugin(['retries' => $backoff === true ? 2 : $backoff]));
         }
 
-        if ($cache = Arr::get($config, 'cache')) {
-            $builder->addCache($this->getCacheAdapter($cache));
+        if (is_array($cache = Arr::get($config, 'cache', false))) {
+            $builder->addCache($this->cache->make($cache));
         }
 
         return $builder;
-    }
-
-    /**
-     * Get the symfony cache adapter for the given illuminate store.
-     *
-     * @param bool|string $name
-     *
-     * @return \Symfony\Component\Cache\Adapter\AdapterInterface
-     */
-    protected function getCacheAdapter($name)
-    {
-        if (!$this->cache) {
-            throw new InvalidArgumentException('Caching support not available.');
-        }
-
-        $store = $this->cache->store($name === true ? null : $name);
-
-        $repo = new Psr16Cache($store, self::MIN_CACHE_LIFETIME, self::MAX_CACHE_LIFETIME);
-
-        return class_exists(Psr16Adapter::class) ? new Psr16Adapter($repo) : new SimpleCacheAdapter($repo);
     }
 }

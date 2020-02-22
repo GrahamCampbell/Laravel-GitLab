@@ -14,7 +14,8 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab;
 
 use Gitlab\Client;
-use GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory;
+use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
+use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
@@ -63,6 +64,7 @@ class GitLabServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerAuthFactory();
+        $this->registerCacheFactory();
         $this->registerGitLabFactory();
         $this->registerManager();
         $this->registerBindings();
@@ -83,6 +85,22 @@ class GitLabServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the cache factory class.
+     *
+     * @return void
+     */
+    protected function registerCacheFactory()
+    {
+        $this->app->singleton('gitlab.cachefactory', function (Container $app) {
+            $cache = $app->bound('cache') ? $app->make('cache') : null;
+
+            return new ConnectionFactory($cache);
+        });
+
+        $this->app->alias('gitlab.cachefactory', ConnectionFactory::class);
+    }
+
+    /**
      * Register the gitlab factory class.
      *
      * @return void
@@ -91,7 +109,7 @@ class GitLabServiceProvider extends ServiceProvider
     {
         $this->app->singleton('gitlab.factory', function (Container $app) {
             $auth = $app['gitlab.authfactory'];
-            $cache = $app->bound('cache') ? $app->make('cache') : null;
+            $cache = $app['gitlab.cachefactory'];
 
             return new GitLabFactory($auth, $cache);
         });

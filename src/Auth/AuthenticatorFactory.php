@@ -11,9 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace GrahamCampbell\GitLab\Authenticators;
+namespace GrahamCampbell\GitLab\Auth;
 
-use Gitlab\Client;
 use InvalidArgumentException;
 
 /**
@@ -30,15 +29,15 @@ class AuthenticatorFactory
      *
      * @throws \InvalidArgumentException
      *
-     * @return \GrahamCampbell\GitLab\Authenticators\AuthenticatorInterface
+     * @return \GrahamCampbell\GitLab\Auth\Authenticator\AuthenticatorInterface
      */
     public function make(string $method)
     {
         switch ($method) {
             case 'oauth':
-                return new GitLabAuthenticator(Client::AUTH_OAUTH_TOKEN);
+                return new Authenticator\OauthAuthenticator();
             case 'token':
-                return new GitLabAuthenticator(Client::AUTH_HTTP_TOKEN);
+                return new Authenticator\TokenAuthenticator();
         }
 
         throw new InvalidArgumentException("Unsupported authentication method [$method].");

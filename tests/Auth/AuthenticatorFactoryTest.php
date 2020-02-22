@@ -11,10 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace GrahamCampbell\Tests\GitLab\Authenticators;
+namespace GrahamCampbell\Tests\GitLab\Auth;
 
-use GrahamCampbell\GitLab\Authenticators\AuthenticatorFactory;
-use GrahamCampbell\GitLab\Authenticators\GitLabAuthenticator;
+use GrahamCampbell\GitLab\Auth\Authenticator\OauthAuthenticator;
+use GrahamCampbell\GitLab\Auth\Authenticator\TokenAuthenticator;
+use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\Tests\GitLab\AbstractTestCase;
 use InvalidArgumentException;
 use TypeError;
@@ -30,14 +31,14 @@ class AuthenticatorFactoryTest extends AbstractTestCase
     {
         $return = $this->getFactory()->make('oauth');
 
-        $this->assertInstanceOf(GitLabAuthenticator::class, $return);
+        $this->assertInstanceOf(OauthAuthenticator::class, $return);
     }
 
     public function testMakeTokenAuthenticator()
     {
         $return = $this->getFactory()->make('token');
 
-        $this->assertInstanceOf(GitLabAuthenticator::class, $return);
+        $this->assertInstanceOf(TokenAuthenticator::class, $return);
     }
 
     public function testMakeInvalidAuthenticator()

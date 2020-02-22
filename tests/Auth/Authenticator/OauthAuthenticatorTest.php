@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace GrahamCampbell\Tests\GitLab\Authenticators;
+namespace GrahamCampbell\Tests\GitLab\Auth\Authenticators;
 
 use Gitlab\Client;
-use GrahamCampbell\GitLab\Authenticators\GitLabAuthenticator;
+use GrahamCampbell\GitLab\Auth\Authenticator\OauthAuthenticator;
 use GrahamCampbell\Tests\GitLab\AbstractTestCase;
 use InvalidArgumentException;
 use Mockery;
@@ -81,7 +81,7 @@ class OauthAuthenticatorTest extends AbstractTestCase
         $client = Mockery::mock(Client::class);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The gitlab authenticator requires a token.');
+        $this->expectExceptionMessage('The oauth authenticator requires a token.');
 
         $authenticator->with($client)->authenticate([]);
     }
@@ -101,6 +101,6 @@ class OauthAuthenticatorTest extends AbstractTestCase
 
     protected function getAuthenticator()
     {
-        return new GitLabAuthenticator(Client::AUTH_OAUTH_TOKEN);
+        return new OauthAuthenticator();
     }
 }

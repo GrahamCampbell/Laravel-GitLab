@@ -15,6 +15,7 @@ namespace GrahamCampbell\GitLab;
 
 use GrahamCampbell\Manager\AbstractManager;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Support\Arr;
 
 /**
  * This is the gitlab manager class.
@@ -90,6 +91,26 @@ class GitLabManager extends AbstractManager
     protected function getConfigName()
     {
         return 'gitlab';
+    }
+
+    /**
+     * Get the configuration for a connection.
+     *
+     * @param string|null $name
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return array
+     */
+    public function getConnectionConfig(string $name = null)
+    {
+        $config = parent::getConnectionConfig($name);
+
+        if (is_string($cache = Arr::get($config, 'cache'))) {
+            $config['cache'] = $this->getNamedConfig('cache', 'Cache', $cache);
+        }
+
+        return $config;
     }
 
     /**

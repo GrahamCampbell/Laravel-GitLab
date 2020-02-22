@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace GrahamCampbell\GitLab\Authenticators;
+namespace GrahamCampbell\GitLab\Auth\Authenticator;
 
 use Gitlab\Client;
 
@@ -27,7 +27,7 @@ interface AuthenticatorInterface
      *
      * @param \Gitlab\Client $client
      *
-     * @return \GrahamCampbell\GitLab\Authenticators\AuthenticatorInterface
+     * @return \GrahamCampbell\GitLab\Auth\Authenticator\AuthenticatorInterface
      */
     public function with(Client $client);
 
