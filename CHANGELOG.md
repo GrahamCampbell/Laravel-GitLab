@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V2.6 (17/03/2020)
+
+* Require m4tthumphrey/php-gitlab-api 9.17
+
+
 ## V2.5 (08/02/2020)
 
 * Made caching truly optional
