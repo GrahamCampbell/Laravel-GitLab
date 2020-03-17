@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V3.1 (Upcoming)
+
+* Require m4tthumphrey/php-gitlab-api 9.17
+
+
 ## V3.0 (01/03/2020)
 
 * Dropped Laravel 5
