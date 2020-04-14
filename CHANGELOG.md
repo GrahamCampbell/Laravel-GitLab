@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V2.6.1 (14/04/2020)
+
+* Updated funding information
+
+
 ## V2.6 (17/03/2020)
 
 * Require m4tthumphrey/php-gitlab-api 9.17
