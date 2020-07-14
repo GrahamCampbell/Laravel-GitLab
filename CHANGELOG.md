@@ -10,6 +10,7 @@ CHANGE LOG
 ## V3.2 (14/07/2020)
 
 * Require m4tthumphrey/php-gitlab-api 9.18
+* Synced manager class dynamic method doc
 
 
 ## V3.1.1 (14/04/2020)
