@@ -37,49 +37,6 @@ class ClientBuilder extends Builder
     const DEFAULT_CACHE_LIFETIME = 172800;
 
     /**
-     * The cache plugin to use.
-     *
-     * This plugin is specially treated because it has to be the very last plugin.
-     *
-     * @var \Http\Client\Common\Plugin\CachePlugin|null
-     */
-    private $cachePlugin;
-
-    /**
-     * Get the gitlab http client.
-     *
-     * @return \Http\Client\Common\HttpMethodsClient
-     */
-    public function getHttpClient()
-    {
-        if ($this->getPropertyValue('httpClientModified')) {
-            $this->setPropertyValue('httpClientModified', false);
-            $this->setPropertyValue('pluginClient', new HttpMethodsClient(
-                (new PluginClientFactory())->createClient($this->getPropertyValue('httpClient'), $this->getPlugins()),
-                $this->getPropertyValue('requestFactory')
-            ));
-        }
-
-        return $this->getPropertyValue('pluginClient');
-    }
-
-    /**
-     * Get the plugins to use.
-     *
-     * @return \Http\Client\Common\Plugin[]
-     */
-    private function getPlugins()
-    {
-        $plugins = $this->getPropertyValue('plugins');
-
-        if ($this->cachePlugin) {
-            $plugins[] = $this->cachePlugin;
-        }
-
-        return $plugins;
-    }
-
-    /**
      * Add a cache plugin to cache responses locally.
      *
      * @param \Psr\Cache\CacheItemPoolInterface $cachePool
@@ -113,7 +70,7 @@ class ClientBuilder extends Builder
 
         $options = ['cache_lifetime' => $lifetime, 'cache_key_generator' => $generator];
 
-        $this->cachePlugin = CachePlugin::clientCache($cachePool, $stream, $options);
+        $this->setPropertyValue('cachePlugin', CachePlugin::clientCache($cachePool, $stream, $options));
     }
 
     /**
