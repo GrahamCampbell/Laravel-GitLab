@@ -27,7 +27,7 @@ Laravel GitLab requires [PHP](https://php.net) 7.2-7.4. This particular version 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org). You will need to install any package that "provides" `php-http/client-implementation`. Most users will want:
 
 ```bash
-$ composer require graham-campbell/gitlab:^3.1 php-http/guzzle6-adapter:^2.0
+$ composer require graham-campbell/gitlab:^3.2 php-http/guzzle6-adapter:^2.0
 ```
 
 Once installed, if you are not using automatic package discovery, then you need to register the `GrahamCampbell\GitLab\GitLabServiceProvider` service provider in your `config/app.php`.
