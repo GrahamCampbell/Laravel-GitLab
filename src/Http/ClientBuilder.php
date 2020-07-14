@@ -14,11 +14,9 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab\Http;
 
 use Gitlab\HttpClient\Builder;
-use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin\Cache\Generator\CacheKeyGenerator;
 use Http\Client\Common\Plugin\Cache\Generator\HeaderCacheKeyGenerator;
 use Http\Client\Common\Plugin\CachePlugin;
-use Http\Client\Common\PluginClientFactory;
 use Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 
