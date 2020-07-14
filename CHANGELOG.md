@@ -6,6 +6,7 @@ CHANGE LOG
 
 * Require m4tthumphrey/php-gitlab-api 9.18
 * Synced manager class dynamic method doc
+* Added missing cachefactory provides
 
 
 ## V3.1.1 (14/04/2020)
