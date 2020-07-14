@@ -105,7 +105,7 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerGitlabFactory()
+    protected function registerGitLabFactory()
     {
         $this->app->singleton('gitlab.factory', function (Container $app) {
             $auth = $app['gitlab.authfactory'];
