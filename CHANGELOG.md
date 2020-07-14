@@ -2,16 +2,12 @@ CHANGE LOG
 ==========
 
 
-<<<<<<< HEAD
-## V3.1.1 (14/04/2020)
-=======
-## V2.7 (14/07/2020)
+## V3.2 (14/07/2020)
 
 * Require m4tthumphrey/php-gitlab-api 9.18
 
 
-## V2.6.1 (14/04/2020)
->>>>>>> 2.7
+## V3.1.1 (14/04/2020)
 
 * Updated funding information
 
