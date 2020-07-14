@@ -159,6 +159,7 @@ class GitLabServiceProvider extends ServiceProvider
     {
         return [
             'gitlab.authfactory',
+            'gitlab.cachefactory',
             'gitlab.factory',
             'gitlab',
             'gitlab.connection',
