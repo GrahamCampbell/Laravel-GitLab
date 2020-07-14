@@ -52,7 +52,7 @@ final class ClientBuilder extends Builder
             $config['lifetime'] ?? self::DEFAULT_CACHE_LIFETIME
         );
 
-        $this->setPropertyValue('httpClientModified', true);
+        $this->setPropertyValue('pluginClient', null);
     }
 
     /**
