@@ -15,7 +15,7 @@
         "graham-campbell/manager": "^4.5",
         "illuminate/contracts": "^6.0|^7.0",
         "illuminate/support": "^6.0|^7.0",
-        "m4tthumphrey/php-gitlab-api": "9.17.*",
+        "m4tthumphrey/php-gitlab-api": "9.18.*",
         "php-http/client-common": "^1.9|^2.0",
         "php-http/cache-plugin": "^1.6",
         "symfony/cache": "^4.3|^5.0"
@@ -41,9 +41,6 @@
         "preferred-install": "dist"
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "3.1-dev"
-        },
         "laravel": {
             "providers": [
                 "GrahamCampbell\\GitLab\\GitLabServiceProvider"

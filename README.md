@@ -1,16 +1,15 @@
 Laravel GitLab
 ==============
 
-Laravel GitLab was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a [PHP GitLab API](https://github.com/m4tthumphrey/php-gitlab-api) bridge for [Laravel](http://laravel.com). It utilises my [Laravel Manager](https://github.com/GrahamCampbell/Laravel-Manager) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-GitLab/releases), [security policy](https://github.com/GrahamCampbell/Laravel-GitLab/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
+Laravel GitLab was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a [GitLab PHP API Client](https://github.com/GitLabPHP/Client) bridge for [Laravel](http://laravel.com). It utilises my [Laravel Manager](https://github.com/GrahamCampbell/Laravel-Manager) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/GrahamCampbell/Laravel-GitLab/releases), [security policy](https://github.com/GrahamCampbell/Laravel-GitLab/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
 
 ![Banner](https://user-images.githubusercontent.com/2829600/71477349-6131cd00-27e1-11ea-84b0-8b4e539c7ad7.png)
 
 <p align="center">
+<a href="https://github.com/GrahamCampbell/Laravel-GitLab/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/workflow/status/GrahamCampbell/Laravel-GitLab/Tests?label=Tests&style=flat-square" alt="Build Status"></img></a>
 <a href="https://github.styleci.io/repos/123726374"><img src="https://github.styleci.io/repos/123726374/shield" alt="StyleCI Status"></img></a>
-<a href="https://github.com/GrahamCampbell/Laravel-GitLab/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/workflow/status/GrahamCampbell/Laravel-GitLab/Tests?style=flat-square" alt="Build Status"></img></a>
-<a href="https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-GitLab/code-structure"><img src="https://img.shields.io/scrutinizer/coverage/g/GrahamCampbell/Laravel-GitLab?style=flat-square" alt="Coverage Status"></img></a>
-<a href="https://scrutinizer-ci.com/g/GrahamCampbell/Laravel-GitLab"><img src="https://img.shields.io/scrutinizer/g/GrahamCampbell/Laravel-GitLab?style=flat-square" alt="Quality Score"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" alt="Software License"></img></a>
+<a href="https://packagist.org/packages/graham-campbell/gitlab"><img src="https://img.shields.io/packagist/dt/graham-campbell/gitlab?style=flat-square" alt="Packagist Downloads"></img></a>
 <a href="https://github.com/GrahamCampbell/Laravel-GitLab/releases"><img src="https://img.shields.io/github/release/GrahamCampbell/Laravel-GitLab?style=flat-square" alt="Latest Version"></img></a>
 </p>
 
@@ -28,7 +27,7 @@ Laravel GitLab requires [PHP](https://php.net) 7.2-7.4. This particular version 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org). You will need to install any package that "provides" `php-http/client-implementation`. Most users will want:
 
 ```bash
-$ composer require graham-campbell/gitlab php-http/guzzle6-adapter:^1.1
+$ composer require graham-campbell/gitlab:^3.1 php-http/guzzle6-adapter:^2.0
 ```
 
 Once installed, if you are not using automatic package discovery, then you need to register the `GrahamCampbell\GitLab\GitLabServiceProvider` service provider in your `config/app.php`.
@@ -138,7 +137,7 @@ class Foo
 App::make('Foo')->bar();
 ```
 
-For more information on how to use the `\Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/m4tthumphrey/php-gitlab-api, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.
+For more information on how to use the `\Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/GitLabPHP/Client, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.
 
 ##### Further Information
 
