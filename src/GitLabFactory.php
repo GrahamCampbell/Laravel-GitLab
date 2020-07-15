@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab;
 
 use Gitlab\Client;
+use Gitlab\HttpClient\Builder;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use GrahamCampbell\GitLab\Http\ClientBuilder;
@@ -28,6 +29,13 @@ use InvalidArgumentException;
  */
 class GitLabFactory
 {
+    /**
+     * The cache lifetime of 48 hours.
+     *
+     * @var int
+     */
+    private const CACHE_LIFETIME = 172800;
+
     /**
      * The authenticator factory instance.
      *
@@ -89,7 +97,7 @@ class GitLabFactory
      *
      * @param string[] $config
      *
-     * @return \GrahamCampbell\GitLab\Http\ClientBuilder
+     * @return \Gitlab\HttpClient\Builder
      */
     protected function getBuilder(array $config)
     {
@@ -100,7 +108,7 @@ class GitLabFactory
         }
 
         if (is_array($cache = Arr::get($config, 'cache', false))) {
-            $builder->addCache($this->cache->make($cache));
+            $builder->addCache($this->cache->make($cache), ['cache_lifetime' => self::CACHE_LIFETIME]);
         }
 
         return $builder;
