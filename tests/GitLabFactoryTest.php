@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace GrahamCampbell\Tests\GitLab;
 
 use Gitlab\Client;
+use GrahamCampbell\BoundedCache\BoundedCacheInterface;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use GrahamCampbell\GitLab\GitLabFactory;
@@ -22,7 +23,6 @@ use Http\Client\Common\HttpMethodsClient;
 use Illuminate\Contracts\Cache\Factory;
 use InvalidArgumentException;
 use Mockery;
-use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * This is the gitlab factory test class.
@@ -45,7 +45,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
     {
         $factory = $this->getFactory();
 
-        $factory[1]->shouldReceive('make')->once()->with(['name' => 'main', 'driver' => 'illuminate'])->andReturn(Mockery::mock(CacheItemPoolInterface::class));
+        $factory[1]->shouldReceive('make')->once()->with(['name' => 'main', 'driver' => 'illuminate'])->andReturn(Mockery::mock(BoundedCacheInterface::class));
 
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => ['name' => 'main', 'driver' => 'illuminate']]);
 
@@ -57,7 +57,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
     {
         $factory = $this->getFactory();
 
-        $factory[1]->shouldReceive('make')->once()->with(['name' => 'main', 'driver' => 'illuminate', 'connection' => 'foo'])->andReturn(Mockery::mock(CacheItemPoolInterface::class));
+        $factory[1]->shouldReceive('make')->once()->with(['name' => 'main', 'driver' => 'illuminate', 'connection' => 'foo'])->andReturn(Mockery::mock(BoundedCacheInterface::class));
 
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => ['name' => 'main', 'driver' => 'illuminate', 'connection' => 'foo']]);
 
