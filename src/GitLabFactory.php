@@ -17,7 +17,6 @@ use Gitlab\Client;
 use Gitlab\HttpClient\Builder;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
-use GrahamCampbell\GitLab\Http\ClientBuilder;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
@@ -101,7 +100,7 @@ class GitLabFactory
      */
     protected function getBuilder(array $config)
     {
-        $builder = new ClientBuilder();
+        $builder = new Builder();
 
         if ($backoff = Arr::get($config, 'backoff')) {
             $builder->addPlugin(new RetryPlugin(['retries' => $backoff === true ? 2 : $backoff]));
