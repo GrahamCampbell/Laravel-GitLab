@@ -20,6 +20,7 @@ use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
+use Symfony\Component\Cache\Adapter\Psr16Adapter;
 
 /**
  * This is the gitlab factory class.
@@ -28,13 +29,6 @@ use InvalidArgumentException;
  */
 class GitLabFactory
 {
-    /**
-     * The cache lifetime of 48 hours.
-     *
-     * @var int
-     */
-    private const CACHE_LIFETIME = 172800;
-
     /**
      * The authenticator factory instance.
      *
@@ -107,7 +101,12 @@ class GitLabFactory
         }
 
         if (is_array($cache = Arr::get($config, 'cache', false))) {
-            $builder->addCache($this->cache->make($cache), ['cache_lifetime' => self::CACHE_LIFETIME]);
+            $boundedCache = $this->cache->make($cache);
+
+            $builder->addCache(
+                new Psr16Adapter($boundedCache),
+                ['cache_lifetime' => $boundedCache->getMaximumLifetime()]
+            );
         }
 
         return $builder;
