@@ -19,7 +19,7 @@ use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use GrahamCampbell\GitLab\GitLabFactory;
 use GrahamCampbell\TestBench\AbstractTestCase as AbstractTestBenchTestCase;
-use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\HttpMethodsClientInterface;
 use Illuminate\Contracts\Cache\Factory;
 use InvalidArgumentException;
 use Mockery;
@@ -38,7 +38,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token']);
 
         $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
     public function testMakeStandardWithCache()
@@ -53,7 +53,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => ['name' => 'main', 'driver' => 'illuminate']]);
 
         $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
     public function testMakeStandardNamedCache()
@@ -68,7 +68,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => ['name' => 'main', 'driver' => 'illuminate', 'connection' => 'foo']]);
 
         $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
     public function testMakeStandardNoCacheOrBackoff()
@@ -78,7 +78,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'cache' => false, 'backoff' => false]);
 
         $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
     public function testMakeStandardExplicitBackoff()
@@ -88,7 +88,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'backoff' => true]);
 
         $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
     public function testMakeStandardExplicitUrl()
@@ -98,7 +98,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'url' => 'https://api.example.com']);
 
         $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
     public function testMakeNoneMethod()
@@ -108,7 +108,7 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $client = $factory[0]->make(['method' => 'none']);
 
         $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(HttpMethodsClient::class, $client->getHttpClient());
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
     public function testMakeInvalidMethod()

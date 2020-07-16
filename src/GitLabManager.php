@@ -53,7 +53,7 @@ use Illuminate\Support\Arr;
  * @method void setUrl(string $url)
  * @method \Psr\Http\Message\ResponseInterface|null getLastResponse()
  * @method \Gitlab\HttpClient\Plugin\History getResponseHistory()
- * @method \Http\Client\Common\HttpMethodsClient getHttpClient()
+ * @method \Http\Client\Common\HttpMethodsClientInterface getHttpClient()
  * @method \Http\Message\StreamFactory getStreamFactory()
  *
  * @author Graham Campbell <graham@alt-three.com>
