@@ -7,6 +7,12 @@ CHANGE LOG
 * Require m4tthumphrey/php-gitlab-api 10.0
 
 
+## V3.3 (UPCOMING)
+
+* Support Laravel 8
+* Require m4tthumphrey/php-gitlab-api 9.19
+
+
 ## V3.2 (14/07/2020)
 
 * Require m4tthumphrey/php-gitlab-api 9.18
