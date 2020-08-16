@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V3.3 (UPCOMING)
+## V3.3 (16/08/2020)
 
 * Support Laravel 8
 * Require m4tthumphrey/php-gitlab-api 9.19
