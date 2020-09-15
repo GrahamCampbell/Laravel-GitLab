@@ -20,9 +20,10 @@ use Illuminate\Support\Arr;
 /**
  * This is the gitlab manager class.
  *
- * @method \Gitlab\Client                                 connection(string|null $name)
- * @method \Gitlab\Client                                 reconnect(string|null $name)
- * @method array<string,\Gitlab\Client>                   getConnections(string $name)
+ * @method \Gitlab\Client                                 connection(string|null $name = null)
+ * @method \Gitlab\Client                                 reconnect(string|null $name = null)
+ * @method void                                           disconnect(string|null $name = null)
+ * @method array<string,\Gitlab\Client>                   getConnections()
  * @method \Gitlab\Api\DeployKeys                         deployKeys()
  * @method \Gitlab\Api\Deployments                        deployments()
  * @method \Gitlab\Api\Environments                       environments()
