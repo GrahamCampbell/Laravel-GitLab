@@ -8,7 +8,7 @@ CHANGE LOG
 * Fixed authenticate phpdoc
 
 
-## V4.1 (UPCOMING)
+## V4.1 (09/11/2020)
 
 * Require m4tthumphrey/php-gitlab-api 10.1
 
