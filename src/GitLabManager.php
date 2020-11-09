@@ -49,7 +49,7 @@ use Illuminate\Support\Arr;
  * @method \Gitlab\Api\Version                            version()
  * @method \Gitlab\Api\Wiki                               wiki()
  * @method \Gitlab\Api\ApiInterface                       api(string $name)
- * @method void                                           authenticate(string $token, string|null $authMethod = null, string|null $sudo = null)
+ * @method void                                           authenticate(string $token, string $authMethod, string|null $sudo = null)
  * @method void                                           setUrl(string $url)
  * @method \Psr\Http\Message\ResponseInterface|null       getLastResponse()
  * @method \Gitlab\HttpClient\Plugin\History              getResponseHistory()
