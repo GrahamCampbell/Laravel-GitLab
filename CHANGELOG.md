@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V4.2 (UPCOMING)
+## V4.2 (09/11/2020)
 
 * Require m4tthumphrey/php-gitlab-api 10.2
 * Fixed authenticate phpdoc
