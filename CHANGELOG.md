@@ -6,6 +6,7 @@ CHANGE LOG
 
 * Support PHP 8
 * Require m4tthumphrey/php-gitlab-api 10.3
+* Manager phpdoc fixes
 
 
 ## V4.2 (09/11/2020)
