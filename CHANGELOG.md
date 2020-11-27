@@ -4,6 +4,7 @@ CHANGE LOG
 
 ## V4.3 (UPCOMING)
 
+* Support PHP 8
 * Require m4tthumphrey/php-gitlab-api 10.3
 
 
