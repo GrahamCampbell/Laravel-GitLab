@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V4.4 (UPCOMING)
+
+* Require m4tthumphrey/php-gitlab-api 10.4
+
+
 ## V4.3 (27/11/2020)
 
 * Support PHP 8
