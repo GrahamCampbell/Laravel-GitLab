@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V5.0 (UPCOMING)
+
+* Require m4tthumphrey/php-gitlab-api 11.0
+
+
 ## V4.4 (UPCOMING)
 
 * Require m4tthumphrey/php-gitlab-api 10.4
