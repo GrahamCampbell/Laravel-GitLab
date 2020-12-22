@@ -75,7 +75,7 @@ This option (`'cache'`) is where each of the cache configurations setup for your
 
 ##### GitLabManager
 
-This is the class of most interest. It is bound to the ioc container as `'gitlab'` and can be accessed using the `Facades\GitLab` facade. This class implements the `ManagerInterface` by extending `AbstractManager`. The interface and abstract class are both part of my [Laravel Manager](https://github.com/GrahamCampbell/Laravel-Manager) package, so you may want to go and checkout the docs for how to use the manager class over at [that repo](https://github.com/GrahamCampbell/Laravel-Manager#usage). Note that the connection class returned will always be an instance of `\Gitlab\Client`.
+This is the class of most interest. It is bound to the ioc container as `'gitlab'` and can be accessed using the `Facades\GitLab` facade. This class implements the `ManagerInterface` by extending `AbstractManager`. The interface and abstract class are both part of my [Laravel Manager](https://github.com/GrahamCampbell/Laravel-Manager) package, so you may want to go and checkout the docs for how to use the manager class over at [that repo](https://github.com/GrahamCampbell/Laravel-Manager#usage). Note that the connection class returned will always be an instance of `Gitlab\Client`.
 
 ##### Facades\GitLab
 
@@ -97,7 +97,7 @@ GitLab::groups()->all();
 // we're done here - how easy was that, it just works!
 ```
 
-The gitlab manager will behave like it is a `\Gitlab\Client` class. If you want to call specific connections, you can do with the `connection` method:
+The gitlab manager will behave like it is a `Gitlab\Client` class. If you want to call specific connections, you can do with the `connection` method:
 
 ```php
 use GrahamCampbell\GitLab\Facades\GitLab;
@@ -142,7 +142,7 @@ class Foo
 App::make('Foo')->bar();
 ```
 
-For more information on how to use the `\Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/GitLabPHP/Client, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.
+For more information on how to use the `Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/GitLabPHP/Client/tree/10.4.0#general-api-usage, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.
 
 ##### Further Information
 
