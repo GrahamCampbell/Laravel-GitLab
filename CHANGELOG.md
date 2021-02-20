@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V5.2 (20/02/2021)
+
+* Require m4tthumphrey/php-gitlab-api 11.2
+
+
 ## V5.1 (25/01/2021)
 
 * Require m4tthumphrey/php-gitlab-api 11.1
