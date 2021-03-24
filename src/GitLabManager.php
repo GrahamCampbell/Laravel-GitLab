@@ -29,6 +29,7 @@ use Illuminate\Support\Arr;
  * @method \Gitlab\Api\Environments                       environments()
  * @method \Gitlab\Api\Groups                             groups()
  * @method \Gitlab\Api\GroupsBoards                       groupsBoards()
+ * @method \Gitlab\Api\GroupsEpics                        groupsEpics()
  * @method \Gitlab\Api\GroupsMilestones                   groupsMilestones()
  * @method \Gitlab\Api\IssueBoards                        issueBoards()
  * @method \Gitlab\Api\IssueLinks                         issueLinks()
