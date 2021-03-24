@@ -23,6 +23,7 @@ use Http\Client\Common\HttpMethodsClientInterface;
 use Illuminate\Contracts\Cache\Factory;
 use InvalidArgumentException;
 use Mockery;
+use Psr\Log\LoggerInterface;
 
 /**
  * This is the gitlab factory test class.
@@ -36,6 +37,26 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
         $factory = $this->getFactory();
 
         $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token']);
+
+        $this->assertInstanceOf(Client::class, $client);
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
+    }
+
+    public function testMakeWithLoggingDisabled()
+    {
+        $factory = $this->getFactory();
+
+        $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'logging' => false]);
+
+        $this->assertInstanceOf(Client::class, $client);
+        $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
+    }
+
+    public function testMakeWithLoggingEnabled()
+    {
+        $factory = $this->getFactory();
+
+        $client = $factory[0]->make(['token' => 'your-token', 'method' => 'token', 'logging' => true]);
 
         $this->assertInstanceOf(Client::class, $client);
         $this->assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
@@ -134,7 +155,8 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
     protected function getFactory()
     {
         $cache = Mockery::mock(ConnectionFactory::class);
+        $logger = Mockery::mock(LoggerInterface::class);
 
-        return [new GitLabFactory(new AuthenticatorFactory(), $cache), $cache];
+        return [new GitLabFactory(new AuthenticatorFactory(), $cache, $logger), $cache, $logger];
     }
 }

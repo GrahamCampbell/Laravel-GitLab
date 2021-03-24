@@ -20,6 +20,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
+use Psr\Log\LoggerInterface;
 
 /**
  * This is the gitlab service provider class.
@@ -110,8 +111,9 @@ class GitLabServiceProvider extends ServiceProvider
         $this->app->singleton('gitlab.factory', function (Container $app) {
             $auth = $app['gitlab.authfactory'];
             $cache = $app['gitlab.cachefactory'];
+            $logger = $app->make(LoggerInterface::class);
 
-            return new GitLabFactory($auth, $cache);
+            return new GitLabFactory($auth, $cache, $logger);
         });
 
         $this->app->alias('gitlab.factory', GitLabFactory::class);

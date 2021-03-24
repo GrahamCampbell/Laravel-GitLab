@@ -17,9 +17,11 @@ use Gitlab\Client;
 use Gitlab\HttpClient\Builder;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
+use Http\Client\Common\Plugin\LoggerPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Adapter\Psr16Adapter;
 
 /**
@@ -44,17 +46,26 @@ class GitLabFactory
     protected $cache;
 
     /**
+     * The logger instance.
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Create a new gitlab factory instance.
      *
      * @param \GrahamCampbell\GitLab\Auth\AuthenticatorFactory $auth
      * @param \GrahamCampbell\GitLab\Cache\ConnectionFactory   $cache
+     * @param \Psr\Log\LoggerInterface                         $logger
      *
      * @return void
      */
-    public function __construct(AuthenticatorFactory $auth, ConnectionFactory $cache)
+    public function __construct(AuthenticatorFactory $auth, ConnectionFactory $cache, LoggerInterface $logger)
     {
         $this->auth = $auth;
         $this->cache = $cache;
+        $this->logger = $logger;
     }
 
     /**
@@ -98,6 +109,10 @@ class GitLabFactory
 
         if ($backoff = Arr::get($config, 'backoff')) {
             $builder->addPlugin(new RetryPlugin(['retries' => $backoff === true ? 2 : $backoff]));
+        }
+
+        if (Arr::get($config, 'logging')) {
+            $builder->addPlugin(new LoggerPlugin($this->logger));
         }
 
         if (is_array($cache = Arr::get($config, 'cache', false))) {
