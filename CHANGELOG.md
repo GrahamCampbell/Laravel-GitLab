@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V5.4 (UPCOMING)
+## V5.4 (27/03/2021)
 
 * Require m4tthumphrey/php-gitlab-api 11.4
 
