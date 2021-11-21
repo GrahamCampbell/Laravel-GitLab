@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## V5.4.1 (21/11/2021)
+
+* Provisional PHP 8.1 support
+* Updated package metadata
+
+
 ## V5.4 (27/03/2021)
 
 * Require m4tthumphrey/php-gitlab-api 11.4
