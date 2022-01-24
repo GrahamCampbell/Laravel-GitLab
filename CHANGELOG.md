@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## V5.5 (UPCOMING)
+
+* Support Laravel 9
+* Require m4tthumphrey/php-gitlab-api 11.5
+
+
 ## V5.4.1 (21/11/2021)
 
 * Provisional PHP 8.1 support
