@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V5.6.1 (30/05/2022)
+
+* Support graham-campbell/bounded-cache v2 too
+
+
 ## V5.6 (24/01/2022)
 
 * Require m4tthumphrey/php-gitlab-api 11.6
