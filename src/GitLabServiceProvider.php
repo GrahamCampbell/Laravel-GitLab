@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace GrahamCampbell\GitLab;
 
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Psr7\HttpFactory as GuzzlePsrFactory;
 use Gitlab\Client;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use GrahamCampbell\GitLab\HttpClient\BuilderFactory;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\HttpFactory as GuzzlePsrFactory;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;

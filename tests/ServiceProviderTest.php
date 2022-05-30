@@ -16,9 +16,9 @@ namespace GrahamCampbell\Tests\GitLab;
 use Gitlab\Client;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
-use GrahamCampbell\GitLab\HttpClient\BuilderFactory;
 use GrahamCampbell\GitLab\GitLabFactory;
 use GrahamCampbell\GitLab\GitLabManager;
+use GrahamCampbell\GitLab\HttpClient\BuilderFactory;
 use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
 
 /**
