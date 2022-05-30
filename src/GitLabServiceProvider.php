@@ -133,7 +133,7 @@ class GitLabServiceProvider extends ServiceProvider
     protected function registerGitLabFactory()
     {
         $this->app->singleton('gitlab.factory', function (Container $app) {
-            $builder = $app['bitbucket.httpclientfactory'];
+            $builder = $app['gitlab.httpclientfactory'];
             $auth = $app['gitlab.authfactory'];
             $cache = $app['gitlab.cachefactory'];
 
