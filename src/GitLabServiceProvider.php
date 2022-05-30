@@ -13,9 +13,12 @@ declare(strict_types=1);
 
 namespace GrahamCampbell\GitLab;
 
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\HttpFactory as GuzzlePsrFactory;
 use Gitlab\Client;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
+use GrahamCampbell\GitLab\HttpClient\BuilderFactory;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
@@ -63,11 +66,33 @@ class GitLabServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerHttpClientFactory();
         $this->registerAuthFactory();
         $this->registerCacheFactory();
         $this->registerGitLabFactory();
         $this->registerManager();
         $this->registerBindings();
+    }
+
+    /**
+     * Register the http client factory class.
+     *
+     * @return void
+     */
+    protected function registerHttpClientFactory(()
+    {
+        $this->app->singleton('gitlab.httpclientfactory', function () {
+            $psrFactory = new GuzzlePsrFactory();
+
+            return new BuilderFactory(
+                new GuzzleClient(['connect_timeout' => 10, 'timeout' => 30]),
+                $psrFactory,
+                $psrFactory,
+                $psrFactory,
+            );
+        });
+
+        $this->app->alias('gitlab.httpclientfactory', BuilderFactory::class);
     }
 
     /**
@@ -108,10 +133,11 @@ class GitLabServiceProvider extends ServiceProvider
     protected function registerGitLabFactory()
     {
         $this->app->singleton('gitlab.factory', function (Container $app) {
+            $builder = $app['bitbucket.httpclientfactory'];
             $auth = $app['gitlab.authfactory'];
             $cache = $app['gitlab.cachefactory'];
 
-            return new GitLabFactory($auth, $cache);
+            return new GitLabFactory($builder, $auth, $cache);
         });
 
         $this->app->alias('gitlab.factory', GitLabFactory::class);
@@ -158,6 +184,7 @@ class GitLabServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+            'gitlab.httpclientfactory',
             'gitlab.authfactory',
             'gitlab.cachefactory',
             'gitlab.factory',

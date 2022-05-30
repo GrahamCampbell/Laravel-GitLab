@@ -16,6 +16,7 @@ namespace GrahamCampbell\Tests\GitLab;
 use Gitlab\Client;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
+use GrahamCampbell\GitLab\HttpClient\BuilderFactory;
 use GrahamCampbell\GitLab\GitLabFactory;
 use GrahamCampbell\GitLab\GitLabManager;
 use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
@@ -28,6 +29,11 @@ use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
 class ServiceProviderTest extends AbstractTestCase
 {
     use ServiceProviderTrait;
+
+    public function testHttpClientFactoryIsInjectable()
+    {
+        $this->assertIsInjectable(BuilderFactory::class);
+    }
 
     public function testAuthFactoryIsInjectable()
     {

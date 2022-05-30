@@ -2,6 +2,13 @@ CHANGE LOG
 ==========
 
 
+## V6.0 (UPGRADES)
+
+* Dropped PHP < 7.4
+* Dropped Laravel < 8
+* Require m4tthumphrey/php-gitlab-api 11.8
+
+
 ## V5.6.1 (30/05/2022)
 
 * Support graham-campbell/bounded-cache v2 too
