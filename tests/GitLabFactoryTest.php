@@ -18,7 +18,10 @@ use GrahamCampbell\BoundedCache\BoundedCacheInterface;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use GrahamCampbell\GitLab\GitLabFactory;
+use GrahamCampbell\GitLab\HttpClient\BuilderFactory;
 use GrahamCampbell\TestBench\AbstractTestCase as AbstractTestBenchTestCase;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\HttpFactory as GuzzlePsrFactory;
 use Http\Client\Common\HttpMethodsClientInterface;
 use Illuminate\Contracts\Cache\Factory;
 use InvalidArgumentException;
@@ -133,8 +136,17 @@ class GitLabFactoryTest extends AbstractTestBenchTestCase
 
     protected function getFactory()
     {
+        $psrFactory = new GuzzlePsrFactory();
+
+        $builder = new BuilderFactory(
+            new GuzzleClient(['connect_timeout' => 10, 'timeout' => 30]),
+            $psrFactory,
+            $psrFactory,
+            $psrFactory,
+        );
+
         $cache = Mockery::mock(ConnectionFactory::class);
 
-        return [new GitLabFactory(new AuthenticatorFactory(), $cache), $cache];
+        return [new GitLabFactory($builder, new AuthenticatorFactory(), $cache), $cache];
     }
 }
