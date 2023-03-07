@@ -14,23 +14,15 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab\Auth\Authenticator;
 
 use Gitlab\Client;
+use InvalidArgumentException;
 
 /**
- * This is the authenticator interface.
+ * This is the job token authenticator class.
  *
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-interface AuthenticatorInterface
+final class JobTokenAuthenticator extends AbstractAuthenticator
 {
-    /**
-     * Set the client to perform the authentication on.
-     *
-     * @param \Gitlab\Client $client
-     *
-     * @return \GrahamCampbell\GitLab\Auth\Authenticator\AuthenticatorInterface
-     */
-    public function with(Client $client): AuthenticatorInterface;
-
     /**
      * Authenticate the client, and return it.
      *
@@ -40,5 +32,16 @@ interface AuthenticatorInterface
      *
      * @return \Gitlab\Client
      */
-    public function authenticate(array $config): Client;
+    public function authenticate(array $config): Client
+    {
+        $client = $this->getClient();
+
+        if (!array_key_exists('token', $config)) {
+            throw new InvalidArgumentException('The job token authenticator requires a token.');
+        }
+
+        $client->authenticate($config['token'], Client::AUTH_HTTP_JOB_TOKEN, $config['sudo'] ?? null);
+
+        return $client;
+    }
 }

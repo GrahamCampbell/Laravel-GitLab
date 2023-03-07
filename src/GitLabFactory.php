@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab;
 
 use Gitlab\Client;
+use Gitlab\HttpClient\Builder;
+use GrahamCampbell\GitLab\Auth\Authenticator\AuthenticatorInterface;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
 use GrahamCampbell\GitLab\Cache\ConnectionFactory;
 use GrahamCampbell\GitLab\HttpClient\BuilderFactory;
@@ -34,21 +36,21 @@ class GitLabFactory
      *
      * @var \GrahamCampbell\GitLab\HttpClient\BuilderFactory
      */
-    protected $builder;
+    private BuilderFactory $builder;
 
     /**
      * The authenticator factory instance.
      *
      * @var \GrahamCampbell\GitLab\Auth\AuthenticatorFactory
      */
-    protected $auth;
+    private AuthenticatorFactory $auth;
 
     /**
      * The cache factory instance.
      *
      * @var \GrahamCampbell\GitLab\Cache\ConnectionFactory
      */
-    protected $cache;
+    private ConnectionFactory $cache;
 
     /**
      * Create a new gitlab factory instance.
@@ -75,7 +77,7 @@ class GitLabFactory
      *
      * @return \Gitlab\Client
      */
-    public function make(array $config)
+    public function make(array $config): Client
     {
         $client = new Client($this->getBuilder($config));
 
@@ -91,7 +93,7 @@ class GitLabFactory
             return $client;
         }
 
-        return $this->auth->make($config['method'])->with($client)->authenticate($config);
+        return $this->getAuthenticator($config['method'])->with($client)->authenticate($config);
     }
 
     /**
@@ -101,7 +103,7 @@ class GitLabFactory
      *
      * @return \Gitlab\HttpClient\Builder
      */
-    protected function getBuilder(array $config)
+    protected function getBuilder(array $config): Builder
     {
         $builder = $this->builder->make();
 
@@ -119,5 +121,17 @@ class GitLabFactory
         }
 
         return $builder;
+    }
+
+    /**
+     * Get the authenticator.
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return \GrahamCampbell\GitLab\Auth\Authenticator\AuthenticatorInterface
+     */
+    protected function getAuthenticator(string $method): AuthenticatorInterface
+    {
+        return $this->auth->make($method);
     }
 }

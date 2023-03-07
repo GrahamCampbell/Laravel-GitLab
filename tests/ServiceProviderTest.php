@@ -30,32 +30,32 @@ class ServiceProviderTest extends AbstractTestCase
 {
     use ServiceProviderTrait;
 
-    public function testHttpClientFactoryIsInjectable()
+    public function testHttpClientFactoryIsInjectable(): void
     {
         $this->assertIsInjectable(BuilderFactory::class);
     }
 
-    public function testAuthFactoryIsInjectable()
+    public function testAuthFactoryIsInjectable(): void
     {
         $this->assertIsInjectable(AuthenticatorFactory::class);
     }
 
-    public function testCacheFactoryIsInjectable()
+    public function testCacheFactoryIsInjectable(): void
     {
         $this->assertIsInjectable(ConnectionFactory::class);
     }
 
-    public function testGitLabFactoryIsInjectable()
+    public function testGitLabFactoryIsInjectable(): void
     {
         $this->assertIsInjectable(GitLabFactory::class);
     }
 
-    public function testGitLabManagerIsInjectable()
+    public function testGitLabManagerIsInjectable(): void
     {
         $this->assertIsInjectable(GitLabManager::class);
     }
 
-    public function testBindings()
+    public function testBindings(): void
     {
         $this->assertIsInjectable(Client::class);
 
@@ -63,7 +63,7 @@ class ServiceProviderTest extends AbstractTestCase
         $this->app['gitlab']->reconnect();
         $new = $this->app['gitlab.connection'];
 
-        $this->assertNotSame($original, $new);
-        $this->assertEquals($original, $new);
+        self::assertNotSame($original, $new);
+        self::assertEquals($original, $new);
     }
 }

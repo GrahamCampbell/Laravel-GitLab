@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace GrahamCampbell\GitLab;
 
+use Gitlab\Client;
 use GrahamCampbell\Manager\AbstractManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
@@ -67,7 +68,7 @@ class GitLabManager extends AbstractManager
      *
      * @var \GrahamCampbell\GitLab\GitLabFactory
      */
-    protected $factory;
+    protected GitLabFactory $factory;
 
     /**
      * Create a new gitlab manager instance.
@@ -90,7 +91,7 @@ class GitLabManager extends AbstractManager
      *
      * @return \Gitlab\Client
      */
-    protected function createConnection(array $config)
+    protected function createConnection(array $config): Client
     {
         return $this->factory->make($config);
     }
@@ -100,7 +101,7 @@ class GitLabManager extends AbstractManager
      *
      * @return string
      */
-    protected function getConfigName()
+    protected function getConfigName(): string
     {
         return 'gitlab';
     }
@@ -114,7 +115,7 @@ class GitLabManager extends AbstractManager
      *
      * @return array
      */
-    public function getConnectionConfig(string $name = null)
+    public function getConnectionConfig(string $name = null): array
     {
         $config = parent::getConnectionConfig($name);
 
@@ -130,7 +131,7 @@ class GitLabManager extends AbstractManager
      *
      * @return \GrahamCampbell\GitLab\GitLabFactory
      */
-    public function getFactory()
+    public function getFactory(): GitLabFactory
     {
         return $this->factory;
     }

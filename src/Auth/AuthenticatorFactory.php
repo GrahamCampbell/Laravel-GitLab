@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace GrahamCampbell\GitLab\Auth;
 
+use GrahamCampbell\GitLab\Auth\Authenticator\AuthenticatorInterface;
 use InvalidArgumentException;
 
 /**
@@ -31,9 +32,11 @@ class AuthenticatorFactory
      *
      * @return \GrahamCampbell\GitLab\Auth\Authenticator\AuthenticatorInterface
      */
-    public function make(string $method)
+    public function make(string $method): AuthenticatorInterface
     {
         switch ($method) {
+            case 'job_token':
+                return new Authenticator\JobTokenAuthenticator();
             case 'oauth':
                 return new Authenticator\OauthAuthenticator();
             case 'token':

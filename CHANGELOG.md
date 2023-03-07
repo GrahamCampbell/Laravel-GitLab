@@ -2,6 +2,16 @@ CHANGE LOG
 ==========
 
 
+## V7.0 (XX/03/2023)
+
+* Support Laravel 8-10 only
+* Support PHP 7.4-8.2 only
+* Added additional types
+* Removed various getter methods
+* Require m4tthumphrey/php-gitlab-api 11.9
+* Added support for job token authentication
+
+
 ## V6.0 (31/05/2022)
 
 * Dropped PHP < 7.4

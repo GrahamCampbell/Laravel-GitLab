@@ -6,7 +6,7 @@ Laravel GitLab was created by, and is maintained by [Graham Campbell](https://gi
 ![Banner](https://user-images.githubusercontent.com/2829600/71477349-6131cd00-27e1-11ea-84b0-8b4e539c7ad7.png)
 
 <p align="center">
-<a href="https://github.com/GrahamCampbell/Laravel-GitLab/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/workflow/status/GrahamCampbell/Laravel-GitLab/Tests?label=Tests&style=flat-square" alt="Build Status"></img></a>
+<a href="https://github.com/GrahamCampbell/Laravel-GitLab/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/actions/workflow/status/GrahamCampbell/Laravel-GitLab/tests.yml?label=Tests&style=flat-square" alt="Build Status"></img></a>
 <a href="https://github.styleci.io/repos/123726374"><img src="https://github.styleci.io/repos/123726374/shield" alt="StyleCI Status"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" alt="Software License"></img></a>
 <a href="https://packagist.org/packages/graham-campbell/gitlab"><img src="https://img.shields.io/packagist/dt/graham-campbell/gitlab?style=flat-square" alt="Packagist Downloads"></img></a>
@@ -16,21 +16,22 @@ Laravel GitLab was created by, and is maintained by [Graham Campbell](https://gi
 
 ## Installation
 
-This version requires [PHP](https://www.php.net/) 7.4-8.1 and supports [Laravel](https://laravel.com/) 8-9.
+This version requires [PHP](https://www.php.net/) 7.4-8.2 and supports [Laravel](https://laravel.com/) 8-10.
 
-| GitLab | L5.1               | L5.2               | L5.3               | L5.4               | L5.5               | L5.6               | L5.7               | L5.8               | L6                 | L7                 | L8                 | L9                 |
-|--------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
-| 1.10   | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| 2.7    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
-| 3.3    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                |
-| 4.4    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                |
-| 5.6    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 6.0    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: |
+| GitLab | L5.5               | L5.6               | L5.7               | L5.8               | L6                 | L7                 | L8                 | L9                 | L10                |
+|--------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| 1.10   | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                |
+| 2.7    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                |
+| 3.3    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| 4.4    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| 5.6    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                |
+| 6.0    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :x:                |
+| 7.0    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org/):
 
 ```bash
-$ composer require "graham-campbell/gitlab:^6.0"
+$ composer require "graham-campbell/gitlab:^7.0"
 ```
 
 Once installed, if you are not using automatic package discovery, then you need to register the `GrahamCampbell\GitLab\GitLabServiceProvider` service provider in your `config/app.php`.
@@ -120,11 +121,10 @@ If you prefer to use dependency injection over facades like me, then you can eas
 
 ```php
 use GrahamCampbell\GitLab\GitLabManager;
-use Illuminate\Support\Facades\App; // you probably have this aliased already
 
 class Foo
 {
-    protected $gitlab;
+    private GitLabManager $gitlab;
 
     public function __construct(GitLabManager $gitlab)
     {
@@ -137,7 +137,7 @@ class Foo
     }
 }
 
-App::make('Foo')->bar();
+app(Foo::class)->bar();
 ```
 
 For more information on how to use the `Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/GitLabPHP/Client/tree/11.5.0#general-api-usage, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.

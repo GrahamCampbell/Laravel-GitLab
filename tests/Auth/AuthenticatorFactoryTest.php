@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace GrahamCampbell\Tests\GitLab\Auth;
 
+use GrahamCampbell\GitLab\Auth\Authenticator\JobTokenAuthenticator;
 use GrahamCampbell\GitLab\Auth\Authenticator\OauthAuthenticator;
 use GrahamCampbell\GitLab\Auth\Authenticator\TokenAuthenticator;
 use GrahamCampbell\GitLab\Auth\AuthenticatorFactory;
@@ -27,37 +28,43 @@ use TypeError;
  */
 class AuthenticatorFactoryTest extends AbstractTestCase
 {
-    public function testMakeOauthAuthenticator()
+    public function testMakeJobTokenAuthenticator(): void
     {
-        $return = $this->getFactory()->make('oauth');
+        $factory = new AuthenticatorFactory();
 
-        $this->assertInstanceOf(OauthAuthenticator::class, $return);
+        self::assertInstanceOf(JobTokenAuthenticator::class, $factory->make('job_token'));
     }
 
-    public function testMakeTokenAuthenticator()
+    public function testMakeOauthAuthenticator(): void
     {
-        $return = $this->getFactory()->make('token');
+        $factory = new AuthenticatorFactory();
 
-        $this->assertInstanceOf(TokenAuthenticator::class, $return);
+        self::assertInstanceOf(OauthAuthenticator::class, $factory->make('oauth'));
     }
 
-    public function testMakeInvalidAuthenticator()
+    public function testMakeTokenAuthenticator(): void
     {
+        $factory = new AuthenticatorFactory();
+
+        self::assertInstanceOf(TokenAuthenticator::class, $factory->make('token'));
+    }
+
+    public function testMakeInvalidAuthenticator(): void
+    {
+        $factory = new AuthenticatorFactory();
+
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported authentication method [foo].');
 
-        $this->getFactory()->make('foo');
+        $factory->make('foo');
     }
 
-    public function testMakeNoAuthenticator()
+    public function testMakeNoAuthenticator(): void
     {
+        $factory = new AuthenticatorFactory();
+
         $this->expectException(TypeError::class);
 
-        $this->getFactory()->make(null);
-    }
-
-    protected function getFactory()
-    {
-        return new AuthenticatorFactory();
+        $factory->make(null);
     }
 }

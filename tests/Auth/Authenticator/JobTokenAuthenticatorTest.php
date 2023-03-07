@@ -14,25 +14,25 @@ declare(strict_types=1);
 namespace GrahamCampbell\Tests\GitLab\Auth\Authenticators;
 
 use Gitlab\Client;
-use GrahamCampbell\GitLab\Auth\Authenticator\OauthAuthenticator;
+use GrahamCampbell\GitLab\Auth\Authenticator\JobTokenAuthenticator;
 use GrahamCampbell\Tests\GitLab\AbstractTestCase;
 use InvalidArgumentException;
 use Mockery;
 
 /**
- * This is the oauth authenticator test class.
+ * This is the job token authenticator test class.
  *
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  */
-class OauthAuthenticatorTest extends AbstractTestCase
+class JobTokenAuthenticatorTest extends AbstractTestCase
 {
     public function testMakeWithMethod(): void
     {
-        $authenticator = new OauthAuthenticator();
+        $authenticator = new JobTokenAuthenticator();
 
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('authenticate')->once()
-            ->with('your-token', 'oauth_token', null);
+            ->with('your-token', 'http_job_token', null);
 
         $return = $authenticator->with($client)->authenticate([
             'token'  => 'your-token',
@@ -44,11 +44,11 @@ class OauthAuthenticatorTest extends AbstractTestCase
 
     public function testMakeWithoutMethod(): void
     {
-        $authenticator = new OauthAuthenticator();
+        $authenticator = new JobTokenAuthenticator();
 
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('authenticate')->once()
-            ->with('your-token', 'oauth_token', null);
+            ->with('your-token', 'http_job_token', null);
 
         $return = $authenticator->with($client)->authenticate([
             'token'  => 'your-token',
@@ -59,11 +59,11 @@ class OauthAuthenticatorTest extends AbstractTestCase
 
     public function testMakeWithSudo(): void
     {
-        $authenticator = new OauthAuthenticator();
+        $authenticator = new JobTokenAuthenticator();
 
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('authenticate')->once()
-            ->with('your-token', 'oauth_token', 'foo');
+            ->with('your-token', 'http_job_token', 'foo');
 
         $return = $authenticator->with($client)->authenticate([
             'token'  => 'your-token',
@@ -76,19 +76,19 @@ class OauthAuthenticatorTest extends AbstractTestCase
 
     public function testMakeWithoutToken(): void
     {
-        $authenticator = new OauthAuthenticator();
+        $authenticator = new JobTokenAuthenticator();
 
         $client = Mockery::mock(Client::class);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The oauth authenticator requires a token.');
+        $this->expectExceptionMessage('The job token authenticator requires a token.');
 
         $authenticator->with($client)->authenticate([]);
     }
 
     public function testMakeWithoutSettingClient(): void
     {
-        $authenticator = new OauthAuthenticator();
+        $authenticator = new JobTokenAuthenticator();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The client instance was not given to the authenticator.');

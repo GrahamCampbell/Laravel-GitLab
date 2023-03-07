@@ -32,7 +32,7 @@ class GitLabTest extends AbstractTestCase
      *
      * @return string
      */
-    protected function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'gitlab';
     }
@@ -42,7 +42,7 @@ class GitLabTest extends AbstractTestCase
      *
      * @return string
      */
-    protected function getFacadeClass()
+    protected static function getFacadeClass(): string
     {
         return GitLab::class;
     }
@@ -52,7 +52,7 @@ class GitLabTest extends AbstractTestCase
      *
      * @return string
      */
-    protected function getFacadeRoot()
+    protected static function getFacadeRoot(): string
     {
         return GitLabManager::class;
     }

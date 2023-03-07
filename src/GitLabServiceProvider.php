@@ -36,7 +36,7 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->setupConfig();
     }
@@ -46,7 +46,7 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function setupConfig()
+    private function setupConfig(): void
     {
         $source = realpath($raw = __DIR__.'/../config/gitlab.php') ?: $raw;
 
@@ -64,7 +64,7 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerHttpClientFactory();
         $this->registerAuthFactory();
@@ -79,9 +79,9 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerHttpClientFactory()
+    private function registerHttpClientFactory(): void
     {
-        $this->app->singleton('gitlab.httpclientfactory', function () {
+        $this->app->singleton('gitlab.httpclientfactory', function (): BuilderFactory {
             $psrFactory = new GuzzlePsrFactory();
 
             return new BuilderFactory(
@@ -100,9 +100,9 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerAuthFactory()
+    private function registerAuthFactory(): void
     {
-        $this->app->singleton('gitlab.authfactory', function () {
+        $this->app->singleton('gitlab.authfactory', function (): AuthenticatorFactory {
             return new AuthenticatorFactory();
         });
 
@@ -114,9 +114,9 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCacheFactory()
+    private function registerCacheFactory(): void
     {
-        $this->app->singleton('gitlab.cachefactory', function (Container $app) {
+        $this->app->singleton('gitlab.cachefactory', function (Container $app): ConnectionFactory {
             $cache = $app->bound('cache') ? $app->make('cache') : null;
 
             return new ConnectionFactory($cache);
@@ -130,9 +130,9 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerGitLabFactory()
+    private function registerGitLabFactory(): void
     {
-        $this->app->singleton('gitlab.factory', function (Container $app) {
+        $this->app->singleton('gitlab.factory', function (Container $app): GitLabFactory {
             $builder = $app['gitlab.httpclientfactory'];
             $auth = $app['gitlab.authfactory'];
             $cache = $app['gitlab.cachefactory'];
@@ -148,9 +148,9 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerManager()
+    private function registerManager(): void
     {
-        $this->app->singleton('gitlab', function (Container $app) {
+        $this->app->singleton('gitlab', function (Container $app): GitLabManager {
             $config = $app['config'];
             $factory = $app['gitlab.factory'];
 
@@ -165,9 +165,9 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerBindings()
+    private function registerBindings(): void
     {
-        $this->app->bind('gitlab.connection', function (Container $app) {
+        $this->app->bind('gitlab.connection', function (Container $app): Client {
             $manager = $app['gitlab'];
 
             return $manager->connection();
@@ -181,7 +181,7 @@ class GitLabServiceProvider extends ServiceProvider
      *
      * @return string[]
      */
-    public function provides()
+    public function provides(): array
     {
         return [
             'gitlab.httpclientfactory',
