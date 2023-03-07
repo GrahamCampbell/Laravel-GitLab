@@ -33,8 +33,8 @@ return [
     |
     | Here are each of the connections setup for your application. Example
     | configuration has been included, but you may add as many connections as
-    | you would like. Note that the 3 supported authentication methods are:
-    | "none", "oauth" and "token".
+    | you would like. Note that the 4 supported authentication methods are:
+    | "none", "oauth", "job_token", and "token".
     |
     */
 
