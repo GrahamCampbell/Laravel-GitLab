@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V7.1 (XX/10/2023)
+
+* Require m4tthumphrey/php-gitlab-api 11.10
+
+
 ## V7.0 (07/03/2023)
 
 * Support Laravel 8-10 only
