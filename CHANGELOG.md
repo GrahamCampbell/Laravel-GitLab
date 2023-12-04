@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## V7.4 (04/12/2023)
+
+* Added PHP 8.3 support
+* Require m4tthumphrey/php-gitlab-api 11.13
+
+
 ## V7.3 (08/10/2023)
 
 * Require m4tthumphrey/php-gitlab-api 11.12
