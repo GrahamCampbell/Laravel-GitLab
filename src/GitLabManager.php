@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace GrahamCampbell\GitLab;
 
 use Gitlab\Client;
+use Gitlab\ResultPager;
 use GrahamCampbell\Manager\AbstractManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
@@ -84,6 +85,18 @@ class GitLabManager extends AbstractManager
     {
         parent::__construct($config);
         $this->factory = $factory;
+    }
+
+    /**
+     * Instantiate a result pager.
+     *
+     * @param string|null $connectionName
+     *
+     * @return \Gitlab\ResultPager
+     */
+    public function resultPager(?string $connectionName = null): ResultPager
+    {
+        return new ResultPager($this->connection($connectionName));
     }
 
     /**

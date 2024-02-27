@@ -140,6 +140,13 @@ class Foo
 app(Foo::class)->bar();
 ```
 
+When the amount of items you receive is not sufficient, you may use the `Gitlab\ResultPager` like so:
+
+```php
+$pager = GitLab::resultPager();
+$issues = $pager->fetchAll($client->issues(), 'all', [null, ['state' => 'closed']]);
+```
+
 For more information on how to use the `Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/GitLabPHP/Client/tree/11.13.0#general-api-usage, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.
 
 ##### Further Information
