@@ -2,6 +2,13 @@ CHANGE LOG
 ==========
 
 
+## V8.0 (XX/03/2025)
+
+* Support only PHP 8.1-8.4
+* Support only Laravel 10-12
+* Require m4tthumphrey/php-gitlab-api 12.0
+
+
 ## V7.6 (04/03/2025)
 
 * Added graham-campbell/bounded-cache v3 support

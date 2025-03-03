@@ -34,15 +34,11 @@ class AuthenticatorFactory
      */
     public function make(string $method): AuthenticatorInterface
     {
-        switch ($method) {
-            case 'job_token':
-                return new Authenticator\JobTokenAuthenticator();
-            case 'oauth':
-                return new Authenticator\OauthAuthenticator();
-            case 'token':
-                return new Authenticator\TokenAuthenticator();
-        }
-
-        throw new InvalidArgumentException("Unsupported authentication method [$method].");
+        return match ($method) {
+            'job_token' => new Authenticator\JobTokenAuthenticator(),
+            'oauth' => new Authenticator\OauthAuthenticator(),
+            'token' => new Authenticator\TokenAuthenticator(),
+            default => throw new InvalidArgumentException("Unsupported authentication method [$method]."),
+        };
     }
 }

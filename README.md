@@ -16,22 +16,23 @@ Laravel GitLab was created by, and is maintained by [Graham Campbell](https://gi
 
 ## Installation
 
-This version requires [PHP](https://www.php.net/) 7.4-8.3 and supports [Laravel](https://laravel.com/) 8-11.
+This version requires [PHP](https://www.php.net/) 8.1-8.4 and supports [Laravel](https://laravel.com/) 10-12.
 
-| GitLab | L5.5               | L5.6               | L5.7               | L5.8               | L6                 | L7                 | L8                 | L9                 | L10                | L11                |
-|--------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
-| 1.10   | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
-| 2.7    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| 3.3    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                |
-| 4.4    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                |
-| 5.6    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
-| 6.0    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
-| 7.6    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| GitLab | L5.5               | L5.6               | L5.7               | L5.8               | L6                 | L7                 | L8                 | L9                 | L10                | L11                | L12                |
+|--------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| 1.10   | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
+| 2.7    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                |
+| 3.3    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| 4.4    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| 5.6    | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                |
+| 6.0    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                |
+| 7.6    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                |
+| 8.0    | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org/):
 
 ```bash
-$ composer require "graham-campbell/gitlab:^7.6"
+$ composer require "graham-campbell/gitlab:^8.0"
 ```
 
 Once installed, if you are not using automatic package discovery, then you need to register the `GrahamCampbell\GitLab\GitLabServiceProvider` service provider in your `config/app.php`.
@@ -124,11 +125,9 @@ use GrahamCampbell\GitLab\GitLabManager;
 
 class Foo
 {
-    private GitLabManager $gitlab;
-
-    public function __construct(GitLabManager $gitlab)
-    {
-        $this->gitlab = $gitlab;
+    public function __construct(
+        private readonly GitLabManager $gitlab,
+    ) {
     }
 
     public function bar()
@@ -140,7 +139,7 @@ class Foo
 app(Foo::class)->bar();
 ```
 
-For more information on how to use the `Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/GitLabPHP/Client/tree/11.14.0#general-api-usage, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.
+For more information on how to use the `Gitlab\Client` class we are calling behind the scenes here, check out the docs at https://github.com/GitLabPHP/Client/tree/12.0.0#general-api-usage, and the manager class at https://github.com/GrahamCampbell/Laravel-Manager#usage.
 
 ##### Further Information
 
