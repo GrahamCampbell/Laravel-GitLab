@@ -5,13 +5,12 @@ CHANGE LOG
 ## V7.6 (04/03/2025)
 
 * Added graham-campbell/bounded-cache v3 support
-* Require m4tthumphrey/php-gitlab-api 11.15
+* Require m4tthumphrey/php-gitlab-api 11.14
 
 
 ## V7.5 (17/03/2024)
 
 * Added Laravel 11 support
-* Require m4tthumphrey/php-gitlab-api 11.14
 
 
 ## V7.4 (04/12/2023)
