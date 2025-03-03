@@ -65,12 +65,7 @@ use Illuminate\Support\Arr;
  */
 class GitLabManager extends AbstractManager
 {
-    /**
-     * The factory instance.
-     *
-     * @var \GrahamCampbell\GitLab\GitLabFactory
-     */
-    protected GitLabFactory $factory;
+    protected readonly GitLabFactory $factory;
 
     /**
      * Create a new gitlab manager instance.

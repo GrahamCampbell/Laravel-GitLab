@@ -36,9 +36,9 @@ class AuthenticatorFactory
     {
         return match ($method) {
             'job_token' => new Authenticator\JobTokenAuthenticator(),
-            'oauth' => new Authenticator\OauthAuthenticator(),
-            'token' => new Authenticator\TokenAuthenticator(),
-            default => throw new InvalidArgumentException("Unsupported authentication method [$method]."),
+            'oauth'     => new Authenticator\OauthAuthenticator(),
+            'token'     => new Authenticator\TokenAuthenticator(),
+            default     => throw new InvalidArgumentException("Unsupported authentication method [$method]."),
         };
     }
 }

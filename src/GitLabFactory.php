@@ -32,27 +32,6 @@ use Symfony\Component\Cache\Adapter\Psr16Adapter;
 class GitLabFactory
 {
     /**
-     * The http client builder factory instance.
-     *
-     * @var \GrahamCampbell\GitLab\HttpClient\BuilderFactory
-     */
-    private BuilderFactory $builder;
-
-    /**
-     * The authenticator factory instance.
-     *
-     * @var \GrahamCampbell\GitLab\Auth\AuthenticatorFactory
-     */
-    private AuthenticatorFactory $auth;
-
-    /**
-     * The cache factory instance.
-     *
-     * @var \GrahamCampbell\GitLab\Cache\ConnectionFactory
-     */
-    private ConnectionFactory $cache;
-
-    /**
      * Create a new gitlab factory instance.
      *
      * @param \GrahamCampbell\GitLab\HttpClient\BuilderFactory $builder
@@ -61,11 +40,11 @@ class GitLabFactory
      *
      * @return void
      */
-    public function __construct(BuilderFactory $builder, AuthenticatorFactory $auth, ConnectionFactory $cache)
-    {
-        $this->builder = $builder;
-        $this->auth = $auth;
-        $this->cache = $cache;
+    public function __construct(
+        private readonly BuilderFactory $builder,
+        private readonly AuthenticatorFactory $auth,
+        private readonly ConnectionFactory $cache,
+    ) {
     }
 
     /**
