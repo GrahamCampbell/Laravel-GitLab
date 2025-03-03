@@ -25,8 +25,6 @@ use InvalidArgumentException;
  */
 class ConnectionFactory
 {
-    private ?Factory $cache;
-
     /**
      * Create a new connection factory instance.
      *

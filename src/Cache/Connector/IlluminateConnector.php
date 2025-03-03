@@ -31,8 +31,6 @@ final class IlluminateConnector implements ConnectorInterface
     private const MIN_CACHE_LIFETIME = 43200;
     private const MAX_CACHE_LIFETIME = 172800;
 
-    private ?Factory $cache;
-
     /**
      * Create a new illuminate connector instance.
      *
