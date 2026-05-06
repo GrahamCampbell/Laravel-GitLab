@@ -2,6 +2,13 @@ CHANGE LOG
 ==========
 
 
+## V8.1 (UPCOMING)
+
+* Add PHP 8.5 support
+* Add Laravel 13 support
+* Require m4tthumphrey/php-gitlab-api 12.1
+
+
 ## V8.0 (03/03/2025)
 
 * Support only PHP 8.1-8.4
