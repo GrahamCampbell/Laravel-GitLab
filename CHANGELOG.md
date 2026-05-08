@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V8.1.1 (UPCOMING)
+
+* Corrected GitLab manager method docs
+
+
 ## V8.1 (06/05/2026)
 
 * Add PHP 8.5 support
