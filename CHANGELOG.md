@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V8.1.1 (UPCOMING)
+## V8.1.1 (09/05/2026)
 
 * Corrected GitLab manager method docs
 
