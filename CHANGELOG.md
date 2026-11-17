@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## V8.1.2 (UPCOMING)
+
+* Require m4tthumphrey/php-gitlab-api 12.1.1
+
+
 ## V8.1.1 (09/05/2026)
 
 * Corrected GitLab manager method docs
